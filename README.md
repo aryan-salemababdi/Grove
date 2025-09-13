@@ -1,6 +1,6 @@
 # Grove (v0.1) - minimal Modular framework skeleton in Go
 
-This repository contains a minimal skeleton for *Grove*, a Nest-inspired framework for Go.
+This repository contains a minimal skeleton for *Grove*, a Modular framework for Go.
 
 Included:
 - `app/` : core App type wrapping `dig` and `fiber`.
