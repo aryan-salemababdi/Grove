@@ -9,7 +9,7 @@ import (
 
 var rootCmd = &cobra.Command{
 	Use:   "grove",
-	Short: "Grove - a minimal Nest-like framework for Go",
+	Short: "Grove - a minimal Modular framework for Go",
 }
 
 func Execute() {
