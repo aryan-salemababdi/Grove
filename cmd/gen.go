@@ -79,11 +79,13 @@ func generateModule(name string) error {
 	if err := os.MkdirAll(root, 0755); err != nil {
 		return err
 	}
+
 	files := map[string]string{
-		"service.go":    serviceTmpl,
-		"controller.go": controllerTmpl,
-		"module.go":     moduleTmpl,
+		fmt.Sprintf("%s.service.go", name):    serviceTmpl,
+		fmt.Sprintf("%s.controller.go", name): controllerTmpl,
+		fmt.Sprintf("%s.module.go", name):     moduleTmpl,
 	}
+
 	for fname, tmpl := range files {
 		path := filepath.Join(root, fname)
 		f, err := os.Create(path)
