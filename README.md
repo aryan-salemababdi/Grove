@@ -20,7 +20,8 @@ go install github.com/aryan-salemababdi/Grove@latest
 ## ⚠️ Ensure your Go bin path is in $PATH:
 
 ```bash
-export PATH=$PATH:$(go env GOPATH)/bin
+echo 'export PATH=$PATH:$(go env GOPATH)/bin' >> ~/.zshrc
+source ~/.zshrc
 (Add it permanently in ~/.zshrc or ~/.bashrc)
 ```
 
