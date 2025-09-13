@@ -70,7 +70,7 @@ type Service struct{}
 
 func NewService() *Service { return &Service{} }
 
-func (s *Service) Greet() string { return "hello from Grove!" }
+func (s *Service) Greet() string { return  "hello from Grove!" }
 `
 	if err := writeFile(filepath.Join(moduleDir, "app.service.go"), service); err != nil {
 		return err
