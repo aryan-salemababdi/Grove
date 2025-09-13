@@ -1,17 +1,17 @@
-package user
+package todo
 
 import "github.com/gofiber/fiber/v2"
 
 type Controller struct {
-	Service *UserService
+	Service *Service
 }
 
-func NewController(s *UserService) *Controller {
+func NewController(s *Service) *Controller {
 	return &Controller{Service: s}
 }
 
 func (c *Controller) RegisterRoutes(app *fiber.App) {
-	app.Get("/users", func(ctx *fiber.Ctx) error {
+	app.Get("/todos", func(ctx *fiber.Ctx) error {
 		return ctx.JSON(c.Service.FindAll())
 	})
 }
