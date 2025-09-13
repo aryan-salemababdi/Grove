@@ -1,4 +1,4 @@
-# Grove (v0.1) - minimal Nest-like framework skeleton in Go
+# Grove (v0.1) - minimal Modular framework skeleton in Go
 
 This repository contains a minimal skeleton for *Grove*, a Nest-inspired framework for Go.
 
