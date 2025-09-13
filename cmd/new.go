@@ -48,6 +48,22 @@ import (
 func main() {
 	a := grove.New()
 
+    app.RegisterMiddleware("auth", func(c *fiber.Ctx) error {
+        return c.Next()
+    })
+
+    app.RegisterMiddleware("logging", func(c *fiber.Ctx) error {
+        fmt.Println("[LOG]", c.Path())
+        return c.Next()
+    })
+
+    app.RegisterMiddleware("cors", func(c *fiber.Ctx) error {
+        c.Set("Access-Control-Allow-Origin", "*")
+        return c.Next()
+    })
+
+    a.UseGlobalMiddleware("logging", "cors", "auth")
+
 	if err := a.RegisterModule("app", app.New()); err != nil {
 		log.Fatal(err)
 	}
