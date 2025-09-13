@@ -39,6 +39,7 @@ func createNewApp(name string) error {
 
 import (
 	"log"
+	"time"
 
 	grove "github.com/aryan-salemababdi/Grove/app"
 	"{{.Name}}/app"
@@ -46,9 +47,13 @@ import (
 
 func main() {
 	a := grove.New()
-	if err := a.RegisterModule(app.New()); err != nil {
+
+	if err := a.RegisterModule("app", app.New()); err != nil {
 		log.Fatal(err)
 	}
+
+	a.WatchModules(".", 2*time.Second)
+
 	if err := a.Start(":3000"); err != nil {
 		log.Fatal(err)
 	}
