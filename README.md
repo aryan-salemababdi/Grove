@@ -6,7 +6,7 @@
     style="border-radius: 20px; border: 2px solid #4CAF50;"/>
 </p>
 
-# 🌱 Velora (v0.4.5)
+# 🌱 Velora (v0.5.0)
 A minimal **Modular framework skeleton** for Go.
 
 Velora is an experimental framework inspired by [NestJS](https://nestjs.com/), built with:
