@@ -162,7 +162,7 @@ func TestServiceGreet(t *testing.T) {
         t.Errorf("Greet() = %q; want %q", got, want)
     }
 }`
-	if err := writeFile(filepath.Join(testDir, "app.service.test.go"), serviceTest); err != nil {
+	if err := writeFile(filepath.Join(testDir, "app.service_test.go"), serviceTest); err != nil {
 		return err
 	}
 
@@ -184,7 +184,7 @@ func TestControllerRoute(t *testing.T) {
         t.Fatalf("expected status 200; got %d", resp.StatusCode)
     }
 }`
-	if err := writeFile(filepath.Join(testDir, "app.controller.test.go"), controllerTest); err != nil {
+	if err := writeFile(filepath.Join(testDir, "app.controller_test.go"), controllerTest); err != nil {
 		return err
 	}
 
