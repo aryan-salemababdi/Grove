@@ -146,6 +146,48 @@ func (m *AppModule) Middlewares() []string {
 		return err
 	}
 
+	testDir := filepath.Join(moduleDir, "__tests__")
+	if err := os.Mkdir(testDir, 0755); err != nil {
+		return err
+	}
+
+	// Service test
+	serviceTest := `package app
+import "testing"
+func TestServiceGreet(t *testing.T) {
+    s := NewService()
+    got := s.Greet()
+    want := "hello from Velora!"
+    if got != want {
+        t.Errorf("Greet() = %q; want %q", got, want)
+    }
+}`
+	if err := writeFile(filepath.Join(testDir, "app.service.test.go"), serviceTest); err != nil {
+		return err
+	}
+
+	// Controller test
+	controllerTest := `package app
+import (
+    "testing"
+    "github.com/gofiber/fiber/v2"
+    "net/http/httptest"
+)
+func TestControllerRoute(t *testing.T) {
+    s := NewService()
+    ctrl := NewController(s)
+    app := fiber.New()
+    ctrl.RegisterRoutes(app)
+    req := httptest.NewRequest("GET", "/", nil)
+    resp, _ := app.Test(req)
+    if resp.StatusCode != 200 {
+        t.Fatalf("expected status 200; got %d", resp.StatusCode)
+    }
+}`
+	if err := writeFile(filepath.Join(testDir, "app.controller.test.go"), controllerTest); err != nil {
+		return err
+	}
+
 	modTidy := exec.Command("go", "mod", "tidy")
 	modTidy.Dir = name
 	if out, err := modTidy.CombinedOutput(); err != nil {

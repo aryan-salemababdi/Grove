@@ -100,5 +100,61 @@ func generateModule(name string) error {
 		}
 		fmt.Println("created", path)
 	}
+
+	serviceTestTmpl := `package {{.Pkg}}
+
+import "testing"
+
+func TestServiceFindAll(t *testing.T) {
+	s := NewService()
+	got := s.FindAll()
+	want := []string{"example"}
+	if len(got) != len(want) {
+		t.Fatalf("expected %v, got %v", want, got)
+	}
+}
+`
+
+	controllerTestTmpl := `package {{.Pkg}}
+
+import (
+	"testing"
+	"github.com/gofiber/fiber/v2"
+	"net/http/httptest"
+)
+
+func TestControllerRoute(t *testing.T) {
+	s := NewService()
+	ctrl := NewController(s)
+	app := fiber.New()
+	ctrl.RegisterRoutes(app)
+	req := httptest.NewRequest("GET", "/{{.Route}}", nil)
+	resp, _ := app.Test(req)
+	if resp.StatusCode != 200 {
+		t.Fatalf("expected status 200; got %d", resp.StatusCode)
+	}
+}
+`
+
+	testFiles := map[string]string{
+		fmt.Sprintf("%s.service_test.go", name):    serviceTestTmpl,
+		fmt.Sprintf("%s.controller_test.go", name): controllerTestTmpl,
+	}
+
+	for fname, tmpl := range testFiles {
+		path := filepath.Join(root, fname)
+		f, err := os.Create(path)
+		if err != nil {
+			return err
+		}
+		defer f.Close()
+		t := template.Must(template.New(fname).Parse(tmpl))
+		data := map[string]string{"Pkg": pkg, "Route": pkg}
+		if err := t.Execute(f, data); err != nil {
+			return err
+		}
+		fmt.Println("created", path)
+	}
+
 	return nil
 }
