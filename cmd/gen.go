@@ -101,6 +101,11 @@ func generateModule(name string) error {
 		fmt.Println("created", path)
 	}
 
+	testDir := filepath.Join(root, "__tests__")
+	if err := os.Mkdir(testDir, 0755); err != nil {
+		return err
+	}
+
 	serviceTestTmpl := `package {{.Pkg}}
 
 import "testing"
