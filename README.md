@@ -1,7 +1,7 @@
-# 🌱 Grove (v0.4.4)
+# 🌱 Velora (v0.4.4)
 A minimal **Modular framework skeleton** for Go.
 
-Grove is an experimental framework inspired by [NestJS](https://nestjs.com/), built with:
+Velora is an experimental framework inspired by [NestJS](https://nestjs.com/), built with:
 - ⚡️ [Fiber](https://github.com/gofiber/fiber) for fast HTTP.
 - 🧩 [Uber Dig](https://github.com/uber-go/dig) for dependency injection.
 - 🛠️ [Cobra](https://github.com/spf13/cobra) for CLI commands.
@@ -14,7 +14,7 @@ Grove is an experimental framework inspired by [NestJS](https://nestjs.com/), bu
 Make sure you have Go 1.21+ installed.
 
 ```bash
-go install github.com/aryan-salemababdi/Grove@latest
+go install github.com/aryan-salemababdi/Velora@latest
 ```
 
 ## ⚠️ Ensure your Go bin path is in $PATH:
@@ -28,7 +28,7 @@ source ~/.zshrc
 ## Create a new app
 
 ```bash
-grove new myapp
+velora new myapp
 cd myapp
 go run main.go
 ```
@@ -36,14 +36,14 @@ go run main.go
 Now open http://localhost:3000 → you should see:
 
 ```bash
-hello from Grove!
+hello from Velora!
 ```
 
 
 ## 🧩 CLI Commands
 
-	•	grove new <name> → creates a new Grove project with a default module.
-	•	grove g module <name> → generates a scaffolded module inside your project.
+	•	velora new <name> → creates a new Velora project with a default module.
+	•	velora g module <name> → generates a scaffolded module inside your project.
 
 
 

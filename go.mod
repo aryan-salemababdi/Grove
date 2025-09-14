@@ -1,4 +1,4 @@
-module github.com/aryan-salemababdi/Grove
+module github.com/aryan-salemababdi/Velora
 
 go 1.24.2
 

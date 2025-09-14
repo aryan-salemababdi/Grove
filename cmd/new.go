@@ -12,7 +12,7 @@ import (
 
 var newCmd = &cobra.Command{
 	Use:   "new [name]",
-	Short: "Create a new Grove application",
+	Short: "Create a new Velora application",
 	Args:  cobra.ExactArgs(1),
 	RunE: func(cmd *cobra.Command, args []string) error {
 		name := args[0]
@@ -42,24 +42,24 @@ import (
 	"time"
 	"fmt"
 	"github.com/gofiber/fiber/v2"
-	
-	grove "github.com/aryan-salemababdi/Grove/app"
+
+	velora "github.com/aryan-salemababdi/Velora/app"
 	"{{.Name}}/app"
 )
 
 func main() {
-	a := grove.New()
+	a := velora.New()
 
-    grove.RegisterMiddleware("auth", func(c *fiber.Ctx) error {
+    velora.RegisterMiddleware("auth", func(c *fiber.Ctx) error {
         return c.Next()
     })
 
-    grove.RegisterMiddleware("logging", func(c *fiber.Ctx) error {
+    velora.RegisterMiddleware("logging", func(c *fiber.Ctx) error {
         fmt.Println("[LOG]", c.Path())
         return c.Next()
     })
 
-    grove.RegisterMiddleware("cors", func(c *fiber.Ctx) error {
+    velora.RegisterMiddleware("cors", func(c *fiber.Ctx) error {
         c.Set("Access-Control-Allow-Origin", "*")
         return c.Next()
     })
@@ -93,7 +93,7 @@ type Service struct{}
 
 func NewService() *Service  { return &Service{} }
 
-func (s *Service) Greet() string { return  "hello from Grove!" }
+func (s *Service) Greet() string { return  "hello from Velora!" }
 `
 	if err := writeFile(filepath.Join(moduleDir, "app.service.go"), service); err != nil {
 		return err
@@ -152,7 +152,7 @@ func (m *AppModule) Middlewares() []string {
 		return fmt.Errorf("go mod tidy failed: %s", string(out))
 	}
 
-	fmt.Println("✅ New Grove app created at", name)
+	fmt.Println("✅ New Velora app created at", name)
 	fmt.Println("👉 cd", name, "&& go run main.go")
 	return nil
 }

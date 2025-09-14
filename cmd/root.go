@@ -8,8 +8,8 @@ import (
 )
 
 var rootCmd = &cobra.Command{
-	Use:   "grove",
-	Short: "Grove - a minimal Modular framework for Go",
+	Use:   "velora",
+	Short: "Velora - a minimal Modular framework for Go",
 }
 
 func Execute() {

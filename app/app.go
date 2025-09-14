@@ -103,7 +103,7 @@ func (a *App) Start(addr string) error {
 	}
 
 	fmt.Println("✅ Registered modules:", a.modules)
-	fmt.Println("🌱 Grove starting on", addr)
+	fmt.Println("🌱 Velora starting on", addr)
 	return a.http.Listen(addr)
 }
 

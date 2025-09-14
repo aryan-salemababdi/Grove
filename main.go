@@ -1,5 +1,5 @@
 package main
 
-import "github.com/aryan-salemababdi/Grove/cmd"
+import "github.com/aryan-salemababdi/Velora/cmd"
 
 func main() { cmd.Execute() }
