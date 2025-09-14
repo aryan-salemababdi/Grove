@@ -2,7 +2,7 @@ package app
 
 import "github.com/gofiber/fiber/v2"
 
-type MiddlewareFunc func(*fiber.Ctx) error
+type MiddlewareFunc = fiber.Handler
 
 var middlewareRegistry = map[string]MiddlewareFunc{}
 
