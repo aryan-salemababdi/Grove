@@ -17,8 +17,7 @@ type Config struct {
 func LoadConfig(path string) *Config {
 	cfg := &Config{data: make(map[string]string)}
 
-	// 1️⃣ Load .env (اگر وجود داشت)
-	_ = godotenv.Load() // اگر فایل .env نبود، نادیده گرفته میشه
+	_ = godotenv.Load()
 
 	for _, e := range os.Environ() {
 		parts := strings.SplitN(e, "=", 2)
@@ -27,7 +26,6 @@ func LoadConfig(path string) *Config {
 		}
 	}
 
-	// 2️⃣ Load YAML اگر مسیر داده شده بود
 	if path != "" {
 		yamlFile, err := os.ReadFile(path)
 		if err != nil {
@@ -45,7 +43,6 @@ func LoadConfig(path string) *Config {
 	return cfg
 }
 
-// flattenYAML نقشه‌های تو در تو را به key=value مسطح تبدیل می‌کند
 func flattenYAML(prefix string, input map[string]interface{}, out map[string]string) {
 	for k, v := range input {
 		key := k
@@ -59,7 +56,7 @@ func flattenYAML(prefix string, input map[string]interface{}, out map[string]str
 		case map[string]interface{}:
 			flattenYAML(key, val, out)
 		case string:
-			if _, exists := out[key]; !exists { // ENV اولویت داره
+			if _, exists := out[key]; !exists {
 				out[key] = val
 			}
 		case int, float64, bool:
@@ -70,12 +67,10 @@ func flattenYAML(prefix string, input map[string]interface{}, out map[string]str
 	}
 }
 
-// دسترسی به مقدار
 func (c *Config) Get(key string) string {
 	return c.data[strings.ToUpper(key)]
 }
 
-// دسترسی به int
 func (c *Config) GetInt(key string) int {
 	var v int
 	fmt.Sscanf(c.Get(key), "%d", &v)
