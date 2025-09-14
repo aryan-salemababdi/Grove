@@ -147,7 +147,7 @@ func TestControllerRoute(t *testing.T) {
 	}
 
 	for fname, tmpl := range testFiles {
-		path := filepath.Join(root, fname)
+		path := filepath.Join(testDir, fname)
 		f, err := os.Create(path)
 		if err != nil {
 			return err
