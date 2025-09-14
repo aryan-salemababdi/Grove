@@ -1,5 +1,9 @@
 <p align="center">
-  <img src="https://aryansab.storage.iran.liara.space/velora%20logo.png" alt="Velora Logo" width="150"/>
+  <img 
+    src="https://aryansab.storage.iran.liara.space/velora%20logo.png" 
+    alt="Velora Logo" 
+    width="150" 
+    style="border-radius: 20px; border: 2px solid #4CAF50;"/>
 </p>
 
 # 🌱 Velora (v0.4.4)
