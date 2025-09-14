@@ -2,7 +2,7 @@
   <img 
     src="https://aryansab.storage.iran.liara.space/velora%20logo.png" 
     alt="Velora Logo" 
-    width="150" 
+    width="350" 
     style="border-radius: 20px; border: 2px solid #4CAF50;"/>
 </p>
 
