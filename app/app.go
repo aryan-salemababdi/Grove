@@ -10,6 +10,7 @@ import (
 	"time"
 
 	"github.com/aryan-salemababdi/Velora/internal/orm"
+	"github.com/aryan-salemababdi/Velora/internal/redis"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/dig"
 	"gorm.io/gorm"
@@ -59,6 +60,11 @@ func (a *App) InitDB(dsn string) {
 	a.container.Provide(func() *gorm.DB {
 		return orm.DB()
 	})
+}
+
+func (a *App) InitRedis(addr, password string, db int) {
+	r := redis.InitRedis(addr, password, db, a.container)
+	_ = r
 }
 
 func (a *App) RegisterModule(name string, m Module) error {
