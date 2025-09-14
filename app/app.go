@@ -9,8 +9,10 @@ import (
 	"strings"
 	"time"
 
+	"github.com/aryan-salemababdi/Velora/internal/orm"
 	"github.com/gofiber/fiber/v2"
 	"go.uber.org/dig"
+	"gorm.io/gorm"
 )
 
 type RouteRegisterer interface {
@@ -50,6 +52,13 @@ func (a *App) UseGlobalMiddleware(names ...string) {
 			log.Println("⚠️ Global middleware not found:", name)
 		}
 	}
+}
+
+func (a *App) InitDB(dsn string) {
+	orm.Init(dsn)
+	a.container.Provide(func() *gorm.DB {
+		return orm.DB()
+	})
 }
 
 func (a *App) RegisterModule(name string, m Module) error {
