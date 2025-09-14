@@ -1,4 +1,4 @@
-# 🌱 Grove (v0.4.0)
+# 🌱 Grove (v0.4.1)
 A minimal **Modular framework skeleton** for Go.
 
 Grove is an experimental framework inspired by [NestJS](https://nestjs.com/), built with:
