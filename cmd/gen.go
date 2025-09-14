@@ -142,8 +142,8 @@ func TestControllerRoute(t *testing.T) {
 `
 
 	testFiles := map[string]string{
-		fmt.Sprintf("%s.service_test.go", name):    serviceTestTmpl,
-		fmt.Sprintf("%s.controller_test.go", name): controllerTestTmpl,
+		fmt.Sprintf("%s.service.test.go", name):    serviceTestTmpl,
+		fmt.Sprintf("%s.controller.test.go", name): controllerTestTmpl,
 	}
 
 	for fname, tmpl := range testFiles {
