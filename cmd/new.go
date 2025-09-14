@@ -5,6 +5,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strings"
 	"text/template"
 
 	"github.com/spf13/cobra"
@@ -187,6 +188,43 @@ func TestControllerRoute(t *testing.T) {
 	if err := writeFile(filepath.Join(testDir, "app.controller_test.go"), controllerTest); err != nil {
 		return err
 	}
+
+	var dtoTmpl = `package {{.Pkg}}
+
+import (
+	"github.com/go-playground/validator/v10"
+)
+
+var validate = validator.New()
+
+type Create{{.UpName}}DTO struct {
+	Name  string ` + "`json:\"name\" validate:\"required,min=3\"`" + `
+	Email string ` + "`json:\"email\" validate:\"required,email\"`" + `
+}
+
+func ValidateDTO(dto interface{}) error {
+	return validate.Struct(dto)
+}
+`
+
+	dtoDir := filepath.Join(moduleDir, "dto")
+	if err := os.MkdirAll(dtoDir, 0755); err != nil {
+		return err
+	}
+
+	dtoPath := filepath.Join(dtoDir, fmt.Sprintf("%s.dto.go", name))
+	t := template.Must(template.New("dto").Parse(dtoTmpl))
+	upName := strings.ToUpper(name[:1]) + name[1:]
+	data := map[string]string{"UpName": upName}
+	f, err := os.Create(dtoPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+	if err := t.Execute(f, data); err != nil {
+		return err
+	}
+	fmt.Println("created", dtoPath)
 
 	modTidy := exec.Command("go", "mod", "tidy")
 	modTidy.Dir = name

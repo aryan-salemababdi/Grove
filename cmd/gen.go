@@ -72,6 +72,24 @@ func (m *{{.UpName}}Module) Register(container *dig.Container, app *fiber.App) e
 }
 `
 
+var dtoTmpl = `package {{.Pkg}}
+
+import (
+	"github.com/go-playground/validator/v10"
+)
+
+var validate = validator.New()
+
+type Create{{.UpName}}DTO struct {
+	Name  string ` + "`json:\"name\" validate:\"required,min=3\"`" + `
+	Email string ` + "`json:\"email\" validate:\"required,email\"`" + `
+}
+
+func ValidateDTO(dto interface{}) error {
+	return validate.Struct(dto)
+}
+`
+
 func generateModule(name string) error {
 	pkg := name
 	up := string(bytes.ToUpper([]byte(name[:1]))) + name[1:]
@@ -100,6 +118,26 @@ func generateModule(name string) error {
 		}
 		fmt.Println("created", path)
 	}
+
+	dtoDir := filepath.Join(root, "dto")
+	if err := os.MkdirAll(dtoDir, 0755); err != nil {
+		return err
+	}
+
+	dtoPath := filepath.Join(dtoDir, name+".dto"+".go")
+
+	f, err := os.Create(dtoPath)
+	if err != nil {
+		return err
+	}
+	defer f.Close()
+
+	t := template.Must(template.New("dto.go").Parse(dtoTmpl))
+	data := map[string]string{"Pkg": "dto", "UpName": up}
+	if err := t.Execute(f, data); err != nil {
+		return err
+	}
+	fmt.Println("created", dtoPath)
 
 	testDir := filepath.Join(root, "__tests__")
 	if err := os.Mkdir(testDir, 0755); err != nil {
