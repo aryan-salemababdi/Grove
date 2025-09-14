@@ -40,6 +40,7 @@ func createNewApp(name string) error {
 import (
 	"log"
 	"time"
+	"fmt"
 
 	grove "github.com/aryan-salemababdi/Grove/app"
 	"{{.Name}}/app"
@@ -48,16 +49,16 @@ import (
 func main() {
 	a := grove.New()
 
-    app.RegisterMiddleware("auth", func(c *fiber.Ctx) error {
+    grove.RegisterMiddleware("auth", func(c *fiber.Ctx) error {
         return c.Next()
     })
 
-    app.RegisterMiddleware("logging", func(c *fiber.Ctx) error {
+    grove.RegisterMiddleware("logging", func(c *fiber.Ctx) error {
         fmt.Println("[LOG]", c.Path())
         return c.Next()
     })
 
-    app.RegisterMiddleware("cors", func(c *fiber.Ctx) error {
+    grove.RegisterMiddleware("cors", func(c *fiber.Ctx) error {
         c.Set("Access-Control-Allow-Origin", "*")
         return c.Next()
     })
