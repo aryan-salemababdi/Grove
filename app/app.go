@@ -35,7 +35,9 @@ type App struct {
 func New() *App {
 	return &App{
 		container: dig.New(),
-		http:      fiber.New(),
+		http: fiber.New(fiber.Config{
+			ErrorHandler: ErrorHandler,
+		}),
 		modules:   []string{},
 		globalMws: []string{},
 	}
